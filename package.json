@@ -10,8 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@react-three/drei": "^9.94.1",
-    "@react-three/fiber": "^8.15.14",
+    "@emailjs/browser": "^3.10.0",
+    "@react-three/drei": "9.56.24",
+    "@react-three/fiber": "8.11.1",
     "clsx": "^2.1.0",
     "framer-motion": "^10.18.0",
     "maath": "^0.10.7",
@@ -21,7 +22,7 @@
     "react-tilt": "^1.0.2",
     "react-vertical-timeline-component": "^3.6.0",
     "tailwind-merge": "^2.2.0",
-    "three": "^0.160.1"
+    "three": "0.149.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.43",
