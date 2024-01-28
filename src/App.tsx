@@ -1,10 +1,20 @@
-import { BrowserRouter } from 'react-router-dom';
-import { About, Contact, Experience, Feedbacks, Hero, Navbar, StarsCanvas, Tech, Works } from './components';
+import { BrowserRouter } from "react-router-dom";
+import {
+  About,
+  Contact,
+  Experience,
+  Feedbacks,
+  Hero,
+  Navbar,
+  StarsCanvas,
+  Tech,
+  Works,
+} from "./components";
 
 const App = () => (
   <BrowserRouter>
-    <div className="z-0 relative bg-primary">
-      <div className="bg-center bg-hero-pattern bg-no-repeat bg-cover">
+    <div className="relative z-0 bg-primary">
+      <div className="bg-hero-pattern bg-cover bg-center bg-no-repeat">
         <Navbar />
         <Hero />
       </div>

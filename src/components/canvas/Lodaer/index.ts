@@ -1,1 +1,1 @@
-export * from './CanvasLoader';
+export * from "./CanvasLoader";
