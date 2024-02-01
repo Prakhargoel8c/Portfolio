@@ -21,7 +21,6 @@ import tailwind from "./tech/tailwind.png";
 import typescript from "./tech/typescript.png";
 import threejs from "./tech/threejs.svg";
 
-import tesla from "./company/tesla.png";
 import sentisum from "./company/sentisum.png";
 import lti from "./company/lti.png";
 
@@ -51,7 +50,6 @@ export {
   tailwind,
   typescript,
   threejs,
-  tesla,
   carrent,
   jobit,
   tripguide,
