@@ -52,6 +52,9 @@ devDependencies:
   '@types/react-dom':
     specifier: ^18.2.17
     version: 18.2.18
+  '@types/react-vertical-timeline-component':
+    specifier: ^3.3.6
+    version: 3.3.6
   '@typescript-eslint/eslint-plugin':
     specifier: ^6.14.0
     version: 6.19.0(@typescript-eslint/parser@6.19.0)(eslint@8.56.0)(typescript@5.3.3)
@@ -991,6 +994,12 @@ packages:
     dependencies:
       '@types/react': 18.2.48
     dev: false
+
+  /@types/react-vertical-timeline-component@3.3.6:
+    resolution: {integrity: sha512-OUvyPXRjXvUD/SNLO0CW0GbIxVF32Ios5qHecMSfw6kxnK1cPULD9NV80EuqZ3WmS/s6BgbcwmN8k4ISb3akhQ==}
+    dependencies:
+      '@types/react': 18.2.48
+    dev: true
 
   /@types/react@18.2.48:
     resolution: {integrity: sha512-qboRCl6Ie70DQQG9hhNREz81jqC1cs9EVNcjQ1AU+jH6NFfSAhVVbrrY/+nSF+Bsk4AOwm9Qa61InvMCyV+H3w==}
