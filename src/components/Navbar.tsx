@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { cn } from "../utils/tailwind";
-import { styles } from "../styles";
 import { Link } from "react-router-dom";
 import { close, logo, menu } from "../assets";
 import { navLinks } from "../constants";
+import { styles } from "../styles";
+import { cn } from "../utils/tailwind";
 
 const Navbar = () => {
   const [active, setActive] = useState("");

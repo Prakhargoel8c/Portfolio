@@ -1,21 +1,21 @@
 import {
-  web,
-  mobile,
   backend,
   creator,
-  sentisum,
-  lti,
   css,
   docker,
   git,
   html,
   javascript,
+  lti,
+  mobile,
   nodejs,
   reactjs,
   redux,
+  sentisum,
   tailwind,
   threejs,
   typescript,
+  web,
 } from "./assets";
 
 export const navLinks = [

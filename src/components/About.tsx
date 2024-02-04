@@ -1,9 +1,9 @@
-import React from "react";
 import { motion } from "framer-motion";
+import React from "react";
+import { Tilt } from "react-tilt";
+import { services } from "../constants";
 import { styles } from "../styles";
 import { fadeIn, textVariant } from "../utils/motion";
-import { services } from "../constants";
-import { Tilt } from "react-tilt";
 import { SectionWrapper } from "./hoc";
 
 // Add options prop to HTMLAttributes for Tilt

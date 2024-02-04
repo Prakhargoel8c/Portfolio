@@ -1,12 +1,12 @@
-import React, { FC } from "react";
 import { motion } from "framer-motion";
-import { textVariant } from "../utils/motion";
-import { styles } from "../styles";
-import { SectionWrapper } from "./hoc";
+import { type FC } from "react";
 import { VerticalTimeline, VerticalTimelineElement } from "react-vertical-timeline-component";
 import "react-vertical-timeline-component/style.min.css";
 import { experiences } from "../constants";
+import { styles } from "../styles";
+import { textVariant } from "../utils/motion";
 import { cn } from "../utils/tailwind";
+import { SectionWrapper } from "./hoc";
 
 export const ExperienceCard: FC<(typeof experiences)[0]> = ({ date, points, iconBg, icon, company_name, title, iconClassName }) => {
   return (

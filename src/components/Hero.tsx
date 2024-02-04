@@ -1,7 +1,7 @@
-import { cn } from "../utils/tailwind";
-import { styles } from "../styles";
-import { ComputersCanvas } from ".";
 import { motion } from "framer-motion";
+import { ComputersCanvas } from ".";
+import { styles } from "../styles";
+import { cn } from "../utils/tailwind";
 
 const Hero = () => {
   return (

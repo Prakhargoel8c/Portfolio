@@ -1,8 +1,8 @@
-import React, { FC } from "react";
 import { motion } from "framer-motion";
+import { type FC } from "react";
+import { styles } from "../../styles";
 import { staggerContainer } from "../../utils/motion";
 import { cn } from "../../utils/tailwind";
-import { styles } from "../../styles";
 
 export const SectionWrapper = (Component: FC, idName: string) => () => {
   return (
