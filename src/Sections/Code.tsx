@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
+import { MatrixBackground } from "../components";
 import { styles } from "../styles";
 import { staggerContainer } from "../utils/motion";
 import { cn } from "../utils/tailwind";
-import MatrixBackground from "./MatrixBackground";
 
 const Code = () => {
   return (
