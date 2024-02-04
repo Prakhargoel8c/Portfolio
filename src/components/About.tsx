@@ -6,6 +6,13 @@ import { services } from "../constants";
 import { Tilt } from "react-tilt";
 import { SectionWrapper } from "./hoc";
 
+// Add options prop to HTMLAttributes for Tilt
+declare module "react" {
+  interface HTMLAttributes<T> extends AriaAttributes, DOMAttributes<T> {
+    options?: unknown;
+  }
+}
+
 interface ServiceCardProps {
   title: string;
   icon: string;
