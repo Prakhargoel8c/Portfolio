@@ -4,7 +4,7 @@ import { staggerContainer } from "../../utils/motion";
 import { cn } from "../../utils/tailwind";
 import { styles } from "../../styles";
 
-export const SectionWrapper = (Camponent: FC, idName: string) => () => {
+export const SectionWrapper = (Component: FC, idName: string) => () => {
   return (
     <motion.section
       initial="hidden"
@@ -17,7 +17,7 @@ export const SectionWrapper = (Camponent: FC, idName: string) => () => {
       <span className="hash-name" id={idName} aria-hidden="true">
         &nbsp;
       </span>
-      <Camponent />
+      <Component />
     </motion.section>
   );
 };
