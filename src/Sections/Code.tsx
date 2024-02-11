@@ -1,7 +1,5 @@
-import { motion } from "framer-motion";
-import { MatrixBackground } from "../components";
+import { Button, Caption, Heading, MatrixBackground, Paragraph } from "../components";
 import { styles } from "../styles";
-import { staggerContainer } from "../utils/motion";
 import { cn } from "../utils/tailwind";
 
 const Code = () => {
@@ -13,13 +11,20 @@ const Code = () => {
       )}
     >
       <MatrixBackground />
-      <motion.div
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.25 }}
-        variants={staggerContainer()}
-        className={cn(styles.padding, "z-0 mx-auto w-11/12 max-w-7xl 2xl:w-4/5")}
-      ></motion.div>
+      <div className={cn(styles.padding, "z-0 mx-auto w-11/12 max-w-7xl 2xl:w-4/5")}>
+        <div className="flex h-full flex-col items-center justify-center text-center">
+          <Caption id="sourcecode-heading">Source code</Caption>
+          <Heading>Behind the simulation</Heading>
+          <Paragraph>
+            You take the <span className="text-neutrals-100">blue pill</span> - you keep scrolling, you leave this site and believe whatever you want
+            to believe. You take the <span className="text-neutrals-100">red pill</span> - you stay in wonderland, and I show you how deep the rabbit
+            hole goes.
+          </Paragraph>
+          <Button as="a" href={import.meta.env.VITE_REPO_LINK} rel="noreferrer" target="_blank" foreground="error" className="mt-8">
+            Show me
+          </Button>
+        </div>
+      </div>
     </section>
   );
 };
