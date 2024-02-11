@@ -4,7 +4,7 @@ import { styles } from "../../styles";
 import { staggerContainer } from "../../utils/motion";
 import { cn } from "../../utils/tailwind";
 
-export const SectionWrapper = (Component: FC, idName: string) => () => {
+export const SectionWrapper = (Component: FC, idName: string, className?: string) => () => {
   return (
     <motion.section
       initial="hidden"
@@ -12,7 +12,7 @@ export const SectionWrapper = (Component: FC, idName: string) => () => {
       viewport={{ once: true, amount: 0.25 }}
       variants={staggerContainer()}
       id={idName}
-      className={cn(styles.padding, "relative z-0 mx-auto max-w-7xl")}
+      className={cn(styles.padding, "relative z-0 mx-auto max-w-7xl", className)}
     >
       <span className="hash-name" id={idName} aria-hidden="true">
         &nbsp;
