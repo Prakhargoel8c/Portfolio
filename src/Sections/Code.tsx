@@ -1,5 +1,4 @@
 import { Button, Caption, Heading, MatrixBackground, Paragraph } from "../components";
-import { styles } from "../styles";
 import { cn } from "../utils/tailwind";
 
 const Code = () => {
@@ -11,7 +10,7 @@ const Code = () => {
       )}
     >
       <MatrixBackground />
-      <div className={cn(styles.padding, "z-0 mx-auto w-11/12 max-w-7xl 2xl:w-4/5")}>
+      <div className="z-0 mx-auto w-11/12 max-w-7xl 2xl:w-4/5">
         <div className="flex h-full flex-col items-center justify-center text-center">
           <Caption id="sourcecode-heading">Source code</Caption>
           <Heading>Behind the simulation</Heading>
