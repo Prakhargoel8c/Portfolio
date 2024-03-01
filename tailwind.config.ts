@@ -7,6 +7,9 @@ export default {
   content: ["./src/**/*.tsx"],
   theme: {
     extend: {
+      fontSize: {
+        xxs: "0.625rem",
+      },
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
       },
