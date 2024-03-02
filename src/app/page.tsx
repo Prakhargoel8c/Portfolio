@@ -1,6 +1,8 @@
 "use client";
 
+import { Rocket } from "lucide-react";
 import { useTheme } from "next-themes";
+import Button from "~/components/primitives/button";
 import { ThemeMenu } from "~/components/ui/ThemeMenu";
 import { SparklesCore } from "~/components/ui/sparkles";
 import { TypewriterEffectSmooth } from "~/components/ui/typewriter-effect";
@@ -28,11 +30,11 @@ const words = [
 export default function HomePage() {
   const { theme } = useTheme();
   return (
-    <div className="h-dvh w-full dark:bg-black bg-white  dark:bg-dot-white/[0.2] bg-dot-black/[0.2] relative flex items-center justify-center">
+    <div className="h-dvh w-full dark:bg-black bg-white  dark:bg-dot-white/[0.2] bg-dot-black/[0.2] relative flex flex-col items-center justify-center">
       {/* Radial gradient for the container to give a faded look */}
       <ThemeMenu />
       <div className="absolute pointer-events-none inset-0 flex items-center justify-center dark:bg-black bg-white [mask-image:radial-gradient(ellipse_at_center,transparent_20%,black)]"></div>
-      <div className="h-dvh w-full flex flex-col items-center justify-center overflow-hidden">
+      <div className="h-[30rem] w-full flex flex-col items-center justify-center overflow-hidden">
         <p className="text-neutral-600 dark:text-neutral-200 text-xxs sm:text-base">Welcome to my Universe</p>
         <TypewriterEffectSmooth words={words} />
         <div className="w-[40rem] h-40 relative">
@@ -56,6 +58,9 @@ export default function HomePage() {
           <div className="absolute inset-0 w-full h-full dark:bg-black bg-white dark:bg-dot-white/[0.2] bg-dot-black/[0.2] [mask-image:radial-gradient(350px_200px_at_top,transparent_20%,white)]"></div>
         </div>
       </div>
+      <Button as="a" foreground="error" className="rounded-full space-x-2" href="/home">
+        <Rocket /> <span>Explore</span>
+      </Button>
     </div>
   );
 }

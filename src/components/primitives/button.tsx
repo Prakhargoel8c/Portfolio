@@ -102,7 +102,8 @@ type ButtonProps = (
 
 export const Button = forwardRef((props: ButtonProps, buttonRef: ForwardedRef<any>) => {
   if (props.as === "a") {
-    const { foreground, background, size, isGhost, children, className, ...restProps } = props;
+    const { foreground, background, size, isGhost, children, className, href, as, ...restProps } = props;
+    console.log("ButtonProps", props);
 
     return (
       <a
@@ -115,7 +116,7 @@ export const Button = forwardRef((props: ButtonProps, buttonRef: ForwardedRef<an
             className,
           }),
         )}
-        ref={buttonRef}
+        href={href}
         {...restProps}
       >
         {children}
