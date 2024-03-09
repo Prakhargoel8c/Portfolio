@@ -33,7 +33,8 @@ const buttonVariants = cva(
       {
         isGhost: true,
         background: "primary",
-        className: "hover:[&:not(:disabled)]:text-primary focus-visible:text-primary",
+        className:
+          "hover:[&:not(:disabled)]:text-primary focus-visible:text-primary dark:hover:[&:not(:disabled)]:text-black dark:focus-visible:text-black",
       },
       {
         isGhost: true,
@@ -43,7 +44,7 @@ const buttonVariants = cva(
       {
         isGhost: false,
         background: "primary",
-        className: "text-primary before:bg-primary",
+        className: "dark:text-black text-primary before:bg-primary",
       },
       {
         isGhost: false,
@@ -59,7 +60,7 @@ const buttonVariants = cva(
       {
         isGhost: true,
         foreground: "default",
-        className: "dark:text-neutrals-50 dark:before:bg-neutrals-50 text-neutrals-500 before:bg-neutrals-500",
+        className: "dark:text-neutrals-50 dark:before:bg-neutrals-50 text-neutrals-500 before:bg-primary",
       },
       {
         isGhost: false,
