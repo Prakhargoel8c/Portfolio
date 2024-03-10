@@ -62,10 +62,10 @@ export const experiences = [
     iconClassName: "size-full",
     date: "Jul 2020 - Jun 2022",
     points: [
-      "Developing and maintaining web applications using React.js and other related technologies.",
-      "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-      "Implementing responsive design and ensuring cross-browser compatibility.",
-      "Participating in code reviews and providing constructive feedback to other developers.",
+      "Developing and maintaining web applications using React.js, ASP.Net, MS-SQL and other related technologies.",
+      "Worked on a project for Microsoft, to track changes in documents and approve them",
+      "Implemented OAuth 2.0 for authentication and authorization",
+      "Lead a team of 3 developers to do a migration of a project from Sharepoint to ASP.Net",
     ],
   },
   {
@@ -75,10 +75,10 @@ export const experiences = [
     iconBg: "#444CE7",
     date: "Jul 2022 - Apr 2023",
     points: [
-      "Developing and maintaining web applications using React.js and other related technologies.",
-      "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
+      "Joined as the first frontend developer in the company and helped in setting up the frontend architecture",
+      "Rewrote the entire frontend of the product using React.js and Tailwind CSS",
+      "Collaborated with the designer to create a design system",
       "Implementing responsive design and ensuring cross-browser compatibility.",
-      "Participating in code reviews and providing constructive feedback to other developers.",
     ],
   },
   {
@@ -88,9 +88,8 @@ export const experiences = [
     iconBg: "#444CE7",
     date: "May 2023 - Present",
     points: [
-      "Developing and maintaining web applications using React.js and other related technologies.",
-      "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-      "Implementing responsive design and ensuring cross-browser compatibility.",
+      "Scaled the frontend team from 1 to 3 developers",
+      "Worked with product managers to create a roadmap for the product",
       "Participating in code reviews and providing constructive feedback to other developers.",
     ],
   },

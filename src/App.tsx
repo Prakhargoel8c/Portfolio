@@ -1,4 +1,5 @@
 import { BrowserRouter } from "react-router-dom";
+import { Toaster } from "sonner";
 import { About, Code, Contact, Experience, Hero, Navbar, StarsCanvas, Tech } from "./Sections";
 
 const App = () => (
@@ -16,6 +17,7 @@ const App = () => (
         <Contact />
         <StarsCanvas />
       </div>
+      <Toaster />
     </div>
   </BrowserRouter>
 );
