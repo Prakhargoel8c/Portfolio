@@ -1,0 +1,223 @@
+---
+import '@fontsource/press-start-2p';
+import '@fontsource/vt323';
+import '../styles/global.css';
+import PixelIcon from '../components/PixelIcon.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  /** Show the HUD bar with a back-to-title link (sub-pages) */
+  hud?: string;
+}
+
+const { title, description = 'Prakhar Goel — full-stack engineer. Retro arcade portfolio and blog.', hud } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <div class="tv">
+      <div class="screen">
+        <div class="screen-inner">
+          {
+            hud && (
+              <nav class="hud" aria-label="Game HUD">
+                <a href="/" class="icon-trigger">
+                  <PixelIcon name="arrow-left" /> Title screen
+                </a>
+                <span aria-hidden="true">{hud}</span>
+                <span class="lives" aria-hidden="true">
+                  <PixelIcon name="heart" class="beating" />
+                  <PixelIcon name="heart" class="beating b2" />
+                  <PixelIcon name="heart" class="beating b3" />
+                </span>
+              </nav>
+            )
+          }
+          <slot />
+        </div>
+        <div class="crt-overlay" aria-hidden="true"></div>
+        <button id="sound-toggle" class:list={['pixel', 'sound-toggle', { side: !!hud }]} aria-pressed="true">&#9834; on</button>
+      </div>
+    </div>
+
+    <script>
+      // ---- Arcade audio engine: synthesized chiptune + SFX, no audio files ----
+      let ctx: AudioContext | null = null;
+      let musicTimer: ReturnType<typeof setTimeout> | null = null;
+      let muted = localStorage.getItem('arcade-muted') === 'on';
+
+      const ensureCtx = () => {
+        if (!ctx) ctx = new AudioContext();
+        if (ctx.state === 'suspended') ctx.resume();
+        return ctx;
+      };
+
+      const tone = (
+        freq: number,
+        at: number,
+        dur: number,
+        type: OscillatorType,
+        vol: number
+      ) => {
+        if (!ctx) return;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = type;
+        osc.frequency.value = freq;
+        gain.gain.setValueAtTime(vol, at);
+        gain.gain.exponentialRampToValueAtTime(0.001, at + dur);
+        osc.connect(gain).connect(ctx.destination);
+        osc.start(at);
+        osc.stop(at + dur);
+      };
+
+      // SFX
+      const sfx = {
+        move() {
+          if (muted) return;
+          const c = ensureCtx();
+          tone(660, c.currentTime, 0.06, 'square', 0.05);
+        },
+        select() {
+          if (muted) return;
+          const c = ensureCtx();
+          tone(523.25, c.currentTime, 0.08, 'square', 0.06);
+          tone(783.99, c.currentTime + 0.08, 0.12, 'square', 0.06);
+        },
+        coin() {
+          if (muted) return;
+          const c = ensureCtx();
+          tone(987.77, c.currentTime, 0.08, 'square', 0.05);
+          tone(1318.5, c.currentTime + 0.08, 0.2, 'square', 0.05);
+        },
+      };
+
+      // ---- Background loop: A-minor pentatonic, 4 bars, 140 BPM ----
+      const STEP = 60 / 140 / 2; // eighth notes
+      const MELODY = [
+        440, 0, 523.25, 0, 659.25, 0, 783.99, 659.25,
+        587.33, 0, 523.25, 0, 440, 0, 0, 0,
+        349.23, 0, 440, 0, 523.25, 0, 659.25, 523.25,
+        392, 0, 493.88, 0, 587.33, 0, 0, 0,
+      ];
+      const BASS = [110, 110, 110, 110, 87.31, 87.31, 98, 98]; // one per half-bar
+
+      let stepIdx = 0;
+      let nextTime = 0;
+
+      const scheduler = () => {
+        if (!ctx || muted) return;
+        while (nextTime < ctx.currentTime + 0.15) {
+          const m = MELODY[stepIdx];
+          if (m) tone(m, nextTime, STEP * 0.9, 'square', 0.03);
+          if (stepIdx % 4 === 0) {
+            tone(BASS[(stepIdx / 4) % BASS.length], nextTime, STEP * 3.6, 'triangle', 0.05);
+          }
+          stepIdx = (stepIdx + 1) % MELODY.length;
+          nextTime += STEP;
+        }
+        musicTimer = setTimeout(scheduler, 50);
+      };
+
+      const startMusic = () => {
+        if (muted || musicTimer) return;
+        const c = ensureCtx();
+        if (c.state !== 'running') return;
+        stepIdx = 0;
+        nextTime = c.currentTime + 0.1;
+        scheduler();
+      };
+
+      const stopMusic = () => {
+        if (musicTimer) clearTimeout(musicTimer);
+        musicTimer = null;
+      };
+
+      // ---- Mute toggle ----
+      const toggle = document.getElementById('sound-toggle')!;
+      const renderToggle = () => {
+        toggle.textContent = muted ? '♪ off' : '♪ on';
+        toggle.setAttribute('aria-pressed', String(!muted));
+        toggle.setAttribute('aria-label', muted ? 'Turn sound on' : 'Turn sound off');
+      };
+      renderToggle();
+
+      toggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        muted = !muted;
+        localStorage.setItem('arcade-muted', muted ? 'on' : 'off');
+        renderToggle();
+        if (muted) {
+          stopMusic();
+        } else {
+          ensureCtx();
+          sfx.coin();
+          startMusic();
+        }
+      });
+
+      // Autoplay rules: start music on load if the browser allows it,
+      // otherwise on the first gesture (insert coin).
+      const tryStart = () => {
+        if (muted) return;
+        const c = ensureCtx();
+        if (c.state === 'running') startMusic();
+      };
+      tryStart();
+      const onFirstGesture = () => {
+        tryStart();
+        removeEventListener('pointerdown', onFirstGesture);
+        removeEventListener('keydown', onFirstGesture);
+      };
+      addEventListener('pointerdown', onFirstGesture);
+      addEventListener('keydown', onFirstGesture);
+
+      // ---- Wire SFX to the page ----
+      document.addEventListener('click', (e) => {
+        const t = e.target as HTMLElement;
+        if (t.closest('#sound-toggle')) return;
+        if (t.closest('a, button, summary')) sfx.select();
+      });
+
+      const isTitleScreen = !!document.getElementById('menu-list');
+      document.addEventListener('keydown', (e) => {
+        if (isTitleScreen && (e.key === 'ArrowUp' || e.key === 'ArrowDown')) sfx.move();
+      });
+
+      // ---- Arrow-key scrolling on content pages ----
+      if (!isTitleScreen) {
+        const scroller = document.querySelector<HTMLElement>('.screen-inner')!;
+        const smooth = !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        document.addEventListener('keydown', (e) => {
+          if (e.defaultPrevented) return;
+          const tag = (document.activeElement?.tagName ?? '').toLowerCase();
+          if (tag === 'input' || tag === 'textarea') return;
+          const page = scroller.clientHeight * 0.85;
+          const deltas: Record<string, number> = {
+            ArrowDown: 160,
+            ArrowUp: -160,
+            PageDown: page,
+            PageUp: -page,
+          };
+          if (e.key in deltas) {
+            e.preventDefault();
+            scroller.scrollBy({ top: deltas[e.key], behavior: smooth ? 'smooth' : 'auto' });
+          } else if (e.key === 'Home' || e.key === 'End') {
+            e.preventDefault();
+            scroller.scrollTo({ top: e.key === 'Home' ? 0 : scroller.scrollHeight, behavior: smooth ? 'smooth' : 'auto' });
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

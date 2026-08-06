@@ -1,30 +1,23 @@
-# React + TypeScript + Vite
+# prakhargoel.dev — retro arcade portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Personal website styled as a retro game title screen — CRT bezel, scanlines, pixel type, keyboard-navigable menu.
 
-Currently, two official plugins are available:
+Built with [Astro](https://astro.build). Fonts: Press Start 2P + VT323 (self-hosted via Fontsource).
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Commands
 
-## Expanding the ESLint configuration
+| Command        | Action                                    |
+| :------------- | :---------------------------------------- |
+| `pnpm install` | Install dependencies                      |
+| `pnpm dev`     | Start dev server at `localhost:4321`      |
+| `pnpm build`   | Build production site to `./dist/`        |
+| `pnpm preview` | Preview the production build locally      |
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Structure
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
-
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+- `src/pages/index.astro` — title screen (main menu)
+- `src/pages/about.astro` — player status screen (resume content)
+- `src/pages/blog/` — stage select (blog index) + post pages
+- `src/content/blog/*.md` — blog posts (markdown + frontmatter: `title`, `description`, `pubDate`, optional `draft`)
+- `src/layouts/CrtLayout.astro` — shared CRT shell (bezel, grid, scanlines, HUD)
+- `src/styles/global.css` — design tokens and shared arcade UI

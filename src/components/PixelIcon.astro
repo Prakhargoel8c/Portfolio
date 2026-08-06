@@ -1,0 +1,118 @@
+---
+/**
+ * Lucide icons (ISC license) with lucide-animated-style hover motion,
+ * retuned to the arcade theme: animations run in steps() so they feel
+ * like sprite frames, not smooth tweens. Trigger by hovering any
+ * ancestor with the `icon-trigger` class (or the icon itself).
+ */
+interface Props {
+  name: keyof typeof icons;
+  size?: string;
+  class?: string;
+}
+
+const icons = {
+  'gamepad': `<line x1="6" x2="10" y1="11" y2="11"/><line x1="8" x2="8" y1="9" y2="13"/><line x1="15" x2="15.01" y1="12" y2="12"/><line x1="18" x2="18.01" y1="10" y2="10"/><path d="M17.32 5H6.68a4 4 0 0 0-3.978 3.59c-.006.052-.01.101-.017.152C2.604 9.416 2 14.456 2 16a3 3 0 0 0 3 3c1 0 1.5-.5 2-1l1.414-1.414A2 2 0 0 1 9.828 16h4.344a2 2 0 0 1 1.414.586L17 18c.5.5 1 1 2 1a3 3 0 0 0 3-3c0-1.545-.604-6.584-.685-7.258-.007-.05-.011-.1-.017-.151A4 4 0 0 0 17.32 5z"/>`,
+  'user': `<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>`,
+  'scroll': `<path d="M15 12h-5"/><path d="M15 8h-5"/><path d="M19 17V5a2 2 0 0 0-2-2H4"/><path d="M8 21h12a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v1a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v2a1 1 0 0 0 1 1h3"/>`,
+  'github': `<path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/>`,
+  'linkedin': `<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/>`,
+  'mail': `<rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>`,
+  'arrow-left': `<path d="m12 19-7-7 7-7"/><path d="M19 12H5"/>`,
+  'heart': `<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>`,
+} as const;
+
+const { name, size = '1.1em', class: className = '' } = Astro.props;
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width={size}
+  height={size}
+  viewBox="0 0 24 24"
+  fill={name === 'heart' ? 'currentColor' : 'none'}
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  class:list={['picon', `picon-${name}`, className]}
+  aria-hidden="true"
+  set:html={icons[name]}
+/>
+
+<style is:global>
+  .picon {
+    vertical-align: -0.18em;
+    display: inline-block;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .icon-trigger:hover .picon-user,
+    .icon-trigger:focus-visible .picon-user,
+    .icon-trigger.selected .picon-user {
+      animation: picon-bob 0.5s steps(3) infinite;
+    }
+
+    .icon-trigger:hover .picon-scroll,
+    .icon-trigger:focus-visible .picon-scroll,
+    .icon-trigger.selected .picon-scroll {
+      animation: picon-tilt 0.6s steps(4) infinite;
+    }
+
+    .icon-trigger:hover .picon-github,
+    .icon-trigger:focus-visible .picon-github,
+    .icon-trigger.selected .picon-github {
+      animation: picon-shake 0.45s steps(4) infinite;
+    }
+
+    .icon-trigger:hover .picon-linkedin,
+    .icon-trigger:focus-visible .picon-linkedin,
+    .icon-trigger.selected .picon-linkedin {
+      animation: picon-bob 0.5s steps(3) infinite;
+    }
+
+    .icon-trigger:hover .picon-mail,
+    .icon-trigger:focus-visible .picon-mail,
+    .icon-trigger.selected .picon-mail {
+      animation: picon-tilt 0.6s steps(4) infinite;
+    }
+
+    .icon-trigger:hover .picon-arrow-left,
+    .icon-trigger:focus-visible .picon-arrow-left {
+      animation: picon-nudge 0.5s steps(3) infinite;
+    }
+
+    .picon-heart.beating {
+      animation: picon-beat 1.2s steps(2) infinite;
+    }
+    .picon-heart.beating.b2 { animation-delay: 0.15s; }
+    .picon-heart.beating.b3 { animation-delay: 0.3s; }
+  }
+
+  @keyframes picon-bob {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-3px); }
+  }
+
+  @keyframes picon-tilt {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-10deg); }
+    75% { transform: rotate(10deg); }
+  }
+
+  @keyframes picon-shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-2px); }
+    75% { transform: translateX(2px); }
+  }
+
+  @keyframes picon-nudge {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(-4px); }
+  }
+
+  @keyframes picon-beat {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.25); }
+  }
+</style>
