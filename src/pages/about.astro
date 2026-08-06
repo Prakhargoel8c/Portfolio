@@ -527,4 +527,32 @@ const achievements = [
     text-decoration-style: dotted;
     text-underline-offset: 4px;
   }
+
+  /* phones only: desktop UX stays untouched */
+  @media (max-width: 640px) {
+    .page-title {
+      margin-top: 0.5rem;
+    }
+
+    /* stack world name over its dates instead of pushing them apart */
+    .world summary {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.4rem;
+      /* generous touch target without changing the visual box */
+      padding: 0.6rem;
+      margin: -0.6rem;
+    }
+
+    .party {
+      gap: 0.9rem;
+    }
+
+    /* touch-friendly contact rows that never overflow */
+    .party a {
+      display: inline-block;
+      padding: 0.35rem 0;
+      overflow-wrap: anywhere;
+    }
+  }
 </style>

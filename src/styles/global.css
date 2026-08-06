@@ -41,6 +41,7 @@ body {
   font-size: 1.375rem;
   line-height: 1.45;
   overflow: hidden;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* ---- The TV ---- */
@@ -71,6 +72,7 @@ body {
   z-index: 1;
   height: 100%;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
   scrollbar-width: thin;
   scrollbar-color: var(--amber) transparent;
 }
@@ -236,4 +238,52 @@ a {
   left: auto;
   transform: none;
   right: clamp(1rem, 2.5vw, 2rem);
+}
+
+/* ---- Phones only: desktop UX stays untouched ---- */
+@media (max-width: 640px) {
+  :root {
+    --bezel-pad: 8px;
+    --grid-cell: 36px;
+  }
+
+  .screen {
+    border-radius: 10px;
+  }
+
+  /* sticky HUD so Back is always reachable mid-scroll */
+  .hud {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    gap: 0.6rem;
+    padding: 0.9rem 1rem;
+    background: rgba(35, 26, 92, 0.92);
+    border-bottom: 1px solid rgba(160, 150, 255, 0.22);
+  }
+
+  /* comfortable touch target for the back link */
+  .hud a {
+    padding: 0.6em 0.4em;
+    margin: -0.6em -0.4em;
+  }
+
+  .hud .lives {
+    letter-spacing: 0.1em;
+  }
+
+  .section-head {
+    margin-top: 2.25rem;
+  }
+
+  /* extra bottom room so the floating sound toggle never covers content */
+  .stage {
+    padding-bottom: 6rem;
+  }
+
+  .sound-toggle,
+  .sound-toggle.side {
+    right: 0.6rem;
+    bottom: 0.6rem;
+  }
 }
