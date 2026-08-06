@@ -15,5 +15,6 @@
     "@fontsource/press-start-2p": "^5.3.0",
     "@fontsource/vt323": "^5.3.0",
     "astro": "^7.2.0"
-  }
+  },
+  "packageManager": "pnpm@11.17.0"
 }
