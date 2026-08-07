@@ -77,6 +77,12 @@ body {
   scrollbar-color: var(--amber) transparent;
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  .screen-inner {
+    scroll-behavior: smooth;
+  }
+}
+
 .screen-inner::-webkit-scrollbar {
   width: 10px;
 }

@@ -27,6 +27,7 @@ const { title, description = 'Prakhar Goel — full-stack engineer. Retro arcade
   <body>
     <div class="tv">
       <div class="screen">
+        <slot name="backdrop" />
         <div class="screen-inner">
           {
             hud && (

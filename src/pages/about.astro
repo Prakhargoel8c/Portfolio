@@ -3,122 +3,105 @@ import CrtLayout from '../layouts/CrtLayout.astro';
 import PixelIcon from '../components/PixelIcon.astro';
 
 /**
- * Career as a world map: each employer is a World, each role is a Stage
- * inside it, and projects are the loot collected in that world.
+ * Two audiences, two sections: Career is a straight professional
+ * profile (recruiter-skimmable, no game jargon); Free Roam keeps
+ * the arcade personality.
  */
-const worlds = [
+const experience = [
   {
-    num: 3,
-    company: 'Adalat AI',
-    yc: true,
-    dates: '2024 – present',
-    status: 'Now playing',
-    open: true,
-    blurb: 'Nonprofit building voice-first infrastructure for Indian courtrooms. Backed by Y Combinator; featured in Forbes and MIT Solve.',
-    stages: [
-      {
-        code: '3-2',
-        role: 'Platform Engineer',
-        dates: '2025 – present',
-        notes: [
-          'Promoted to a senior IC role after leading the product 0→1, focused on platform-level problems across products.',
-          'Built Yak, a Yjs collaboration server on Node.js and Redis, powering real-time multi-user document editing platform-wide.',
-          'Designed a lossless WebSocket pipeline for voice dictation — buffering, auto-reconnect, and resume, so no audio is dropped over flaky courtroom internet.',
-          'The platform is live across 50% of India, with 1,000,000+ minutes of courtroom proceedings recorded every quarter.',
-        ],
-      },
-      {
-        code: '3-1',
-        role: 'Founding Engineer',
-        dates: '2024 – 2025',
-        notes: [
-          'First engineering hire; helped scale the nonprofit into one of India’s leading legal-tech orgs — the first nonprofit accepted into Y Combinator in 5 years.',
-          'Owned the entire frontend stack — built a voice-first text editor for patchy internet, with print, page margins, and end-to-end encryption.',
-          'Helped scale engineering from 0 to 20.',
-        ],
-      },
-    ],
-    loot: [
-      { name: 'Judges Dashboard', desc: 'Core dashboard for judges and court staff — voice-first editor, document workflows, offline-resilient UX.' },
-      { name: 'Yak', desc: 'Yjs collaboration server on Node.js + Redis behind every collaborative document on the platform.' },
+    role: 'Platform Engineer',
+    company: 'Adalat AI (YC)',
+    dates: '2025 – present',
+    where: 'India · remote',
+    notes: [
+      'Promoted after leading the product 0→1 as Founding Engineer; now a senior IC focused on platform-level problems across products.',
+      'Built Yak, a Yjs collaboration server on Node.js and Redis, enabling real-time multi-user document collaboration across the platform.',
+      'Designed a lossless WebSocket pipeline for voice dictation — buffering, automatic reconnection, and resume without data loss over unreliable courtroom internet.',
+      'The platform is live across 50% of India, recording 1,000,000+ minutes of courtroom proceedings every quarter.',
     ],
   },
   {
-    num: 2,
+    role: 'Founding Engineer',
+    company: 'Adalat AI',
+    dates: '2024 – 2025',
+    where: 'India · remote',
+    notes: [
+      'First engineering hire; helped scale the nonprofit into one of India’s leading legal-tech organizations — the first nonprofit accepted into Y Combinator in 5 years.',
+      'Owned the entire frontend stack; built the Judges Dashboard, a voice-first text editor that works on patchy internet, with document print, page margins, and end-to-end encryption.',
+      'Worked closely with design, lawyers, court staff, and leadership to drive feature development; helped scale engineering from 0 to 20.',
+    ],
+  },
+  {
+    role: 'Senior MTS, Frontend',
     company: 'SentiSum',
     dates: '2022 – 2024',
-    status: 'Cleared',
-    blurb: 'Seed-funded customer-insight startup, London (remote).',
-    stages: [
-      {
-        code: '2-1',
-        role: 'Senior MTS, Frontend',
-        dates: '2022 – 2024',
-        notes: [
-          'Completed the 0→1 journey with complete ownership of the frontend and other key pieces of the stack.',
-          'Mentored and hired junior engineers to expand the team.',
-          'Retained part-time for 6 months after moving on — single-handedly maintained the product while the core team worked on a pivot.',
-        ],
-      },
-    ],
-    loot: [
-      { name: 'SentiSum Dashboard', desc: 'Support-insights dashboard; designed a reusable component system from unstyled components, killed page refreshes with react-query.' },
+    where: 'London · remote',
+    notes: [
+      'Completed the 0→1 journey at a seed-funded startup with full ownership of the frontend and other key pieces of the stack.',
+      'Designed a reusable component system from unstyled components, cutting development time; eliminated page refreshes with react-query.',
+      'Mentored and hired junior engineers; retained part-time for 6 months after moving on, single-handedly maintaining the product through a company pivot.',
     ],
   },
   {
-    num: 1,
-    company: 'Larsen & Toubro Infotech',
+    role: 'Senior Software Engineer, Full Stack',
+    company: 'Larsen & Toubro Infotech — Microsoft SDMPlus',
     dates: '2020 – 2022',
-    status: 'Cleared',
-    blurb: 'Microsoft SDMPlus project.',
-    stages: [
-      {
-        code: '1-1',
-        role: 'Senior Software Engineer, Full Stack',
-        dates: '2020 – 2022',
-        notes: [
-          'Built a git-like document change tracker and approval flow with CKEditor.',
-          'Worked on site gamification to increase user interaction, and on accessibility.',
-        ],
-      },
-    ],
-    loot: [
-      { name: 'SDMPlus', desc: 'Upgraded an ejected project to Webpack 5; lazy-loading and react-virtualized performance work.' },
-      { name: 'Rasa Bot Designer', desc: 'Chatbot workflow builder with rich-text mentions via DraftJS.' },
-      { name: 'Survey Form', desc: 'Dynamic step-form builder driven by JSON data.' },
+    where: 'India',
+    notes: [
+      'Built a git-like document change tracker and approval workflow using CKEditor.',
+      'Upgraded an ejected project to Webpack 5; improved performance with lazy-loaded components and react-virtualized.',
+      'Worked on site gamification to increase user interaction and on accessibility improvements.',
     ],
   },
 ];
 
-type SkillItem = string | { label: string; new?: boolean };
-
-const skills: { group: string; items: SkillItem[] }[] = [
+const skills = [
   { group: 'Frontend', items: ['TypeScript', 'React', 'Next.js', 'Redux Toolkit', 'Zustand', 'React Query', 'Zod', 'Tailwind', 'Radix UI'] },
-  {
-    group: 'Backend & real-time',
-    items: ['Node.js', 'Express', 'Redis', 'WebSockets', 'Yjs', 'PartyKit', 'Python', 'MS-SQL', 'Supabase', { label: 'Go', new: true }],
-  },
-  { group: 'Architecture', items: [{ label: 'System design', new: true }] },
+  { group: 'Backend & real-time', items: ['Node.js', 'Express', 'Redis', 'WebSockets', 'Yjs', 'PartyKit', 'Python', 'MS-SQL', 'Supabase', 'Go'] },
+  { group: 'Architecture', items: ['System design'] },
   { group: 'Editors & collaboration', items: ['ProseMirror', 'Tiptap', 'CKEditor', 'DraftJS'] },
-  { group: 'AI tooling', items: ['Claude Code', 'AI-assisted workflows', { label: 'AI/LLM integration', new: true }] },
+  { group: 'AI tooling', items: ['Claude Code', 'AI/LLM integration', 'AI-assisted workflows'] },
   { group: 'Analytics & monitoring', items: ['Mixpanel', 'Sentry', 'June'] },
 ];
 
-const achievements = [
+const talks = [
   '“Building WebSocket Apps That Hold Up in Production” — React Nexus, 2026',
   '“Designing a Voice-First Text Editor” — Bangalore React Meetup #96',
-  'Adalat AI — first nonprofit accepted into Y Combinator in 5 years; featured in Forbes and MIT Solve',
+];
+
+type HobbyIcon = 'map' | 'tv' | 'dumbbell' | 'footprints' | 'wind';
+
+const hobbies: { icon: HobbyIcon; title: string; desc: string; marathon?: boolean }[] = [
+  { icon: 'map', title: 'Explorer', desc: 'Always clearing fog of war — new places, new maps.' },
+  { icon: 'wind', title: 'Glider unlocked', desc: 'Completed a paragliding course. Fall damage: disabled.' },
+  { icon: 'footprints', title: 'Endurance build', desc: 'Took up running.', marathon: true },
+  { icon: 'dumbbell', title: 'STR grinding', desc: 'Gym regular. Slow, honest stat gains.' },
+  { icon: 'tv', title: 'Cutscene enjoyer', desc: 'Anime watchlist permanently running.' },
 ];
 ---
 
 <CrtLayout title="About — Prakhar Goel" hud="Player status">
+  <div slot="backdrop" class="solar-system" aria-hidden="true">
+    <div class="sun"></div>
+    <div class="orbit o1"><span class="planet p1"></span></div>
+    <div class="orbit o2"><span class="planet p2"></span></div>
+    <div class="orbit o3"><span class="planet p3 ringed"></span></div>
+    <div class="orbit o4"><span class="planet p4"></span></div>
+    <div class="orbit o5"><span class="planet p5"></span></div>
+  </div>
+
   <main class="stage">
     <h1 class="amber-title page-title">Player 1</h1>
+
+    <nav class="mode-nav pixel" aria-label="Page sections">
+      <a href="#career">Career</a>
+      <a href="#free-roam">Free roam</a>
+    </nav>
 
     <div class="panel player-card">
       <dl>
         <div><dt class="pixel">Name</dt><dd>Prakhar Goel</dd></div>
-        <div><dt class="pixel">Class</dt><dd>Full-stack engineer · frontend specialist</dd></div>
+        <div><dt class="pixel">Class</dt><dd>Full-stack engineer</dd></div>
         <div><dt class="pixel">Base</dt><dd>India · remote</dd></div>
       </dl>
       <div class="xp" role="img" aria-label="Level 6, six years of experience">
@@ -134,92 +117,87 @@ const achievements = [
       </p>
     </div>
 
-    <h2 class="section-head">World map</h2>
-    <p class="muted map-hint">Select a world to explore it. Stages are roles; loot is what got built there.</p>
+    <!-- ============ Professional section ============ -->
+    <h2 class="amber-title mode-head" id="career">Career</h2>
 
+    <h3 class="section-head">Experience</h3>
     {
-      worlds.map((w) => (
-        <details class="panel world" open={w.open}>
-          <summary class="icon-trigger">
-            <span class="pixel world-name">
-              World {w.num}: {w.company}
-              {w.yc && <span class="yc-badge" title="Backed by Y Combinator">YC</span>}
-            </span>
-            <span class="muted world-meta">
-              {w.dates} · <span class:list={['status', { active: w.status === 'Now playing' }]}>{w.status}</span>
-            </span>
-          </summary>
-
-          <p class="muted world-blurb">{w.blurb}</p>
-
-          {w.stages.map((s) => (
-            <section class="stage-block">
-              <h3 class="pixel stage-code">
-                Stage {s.code} · {s.role}
-              </h3>
-              <p class="muted stage-dates">{s.dates}</p>
-              <ul>
-                {s.notes.map((n) => (
-                  <li>{n}</li>
-                ))}
-              </ul>
-            </section>
-          ))}
-
-          <section class="loot">
-            <h3 class="pixel loot-head">Loot collected</h3>
-            <ul class="loot-grid">
-              {w.loot.map((p) => (
-                <li>
-                  <span class="pixel item-name">{p.name}</span>
-                  <span class="muted">{p.desc}</span>
-                </li>
-              ))}
-            </ul>
-          </section>
-        </details>
+      experience.map((job) => (
+        <article class="panel role">
+          <header>
+            <h4 class="pixel role-title">{job.role} — {job.company}</h4>
+            <p class="muted role-meta">{job.dates} · {job.where}</p>
+          </header>
+          <ul>
+            {job.notes.map((n) => (
+              <li>{n}</li>
+            ))}
+          </ul>
+        </article>
       ))
     }
 
-    <h2 class="section-head">Skill tree</h2>
+    <h3 class="section-head">Skills</h3>
     <div class="panel">
       {
         skills.map((s) => (
           <div class="skill-row">
-            <h3 class="pixel skill-group">{s.group}</h3>
+            <h4 class="pixel skill-group">{s.group}</h4>
             <ul class="chips">
-              {s.items.map((item) =>
-                typeof item === 'string' ? (
-                  <li>{item}</li>
-                ) : (
-                  <li class:list={[{ fresh: item.new }]}>
-                    {item.label}
-                    {item.new && <span class="pixel new-tag blink">New!</span>}
-                  </li>
-                )
-              )}
+              {s.items.map((item) => (
+                <li>{item}</li>
+              ))}
             </ul>
           </div>
         ))
       }
     </div>
 
-    <h2 class="section-head">Achievements unlocked</h2>
+    <h3 class="section-head">Talks</h3>
     <div class="panel">
       <ul class="achievements">
-        {achievements.map((a) => <li>{a}</li>)}
+        {talks.map((t) => <li>{t}</li>)}
       </ul>
     </div>
 
-    <h2 class="section-head">Tutorial complete</h2>
+    <h3 class="section-head">Education</h3>
     <div class="panel">
       <ul class="tutorial">
-        <li>B.Tech, Computer Science — UPES · 2016 – 2020</li>
+        <li>B.Tech, Computer Science — UPES · 2016 – 2020 · studied game development before moving to full-stack</li>
         <li>Microsoft Azure Fundamentals certification · 2020</li>
       </ul>
     </div>
 
-    <h2 class="section-head">Join party</h2>
+    <!-- ============ Personality section ============ -->
+    <h2 class="amber-title mode-head" id="free-roam">Free roam</h2>
+    <p class="muted map-hint">
+      Rolled Game Developer at character creation; respecced to full-stack, kept the instincts —
+      you're looking at them. Here's what Player 1 does when the work quests are turned in.
+    </p>
+
+    <div class="hobby-grid">
+      {
+        hobbies.map((h) => (
+          <div class="panel hobby icon-trigger">
+            <PixelIcon name={h.icon} size="1.9em" class="hobby-icon" />
+            <span class="pixel hobby-title">{h.title}</span>
+            <span class="muted">{h.desc}</span>
+            {h.marathon && (
+              <div class="marathon">
+                <div class="marathon-bar" role="img" aria-label="Half marathon quest complete, 21.1 of 21.1 kilometers">
+                  <div class="marathon-fill" />
+                </div>
+                <span class="pixel marathon-note">
+                  <PixelIcon name="medal" /> Half marathon: 21.1/21.1 km — quest complete
+                </span>
+              </div>
+            )}
+          </div>
+        ))
+      }
+    </div>
+
+    <h3 class="section-head">Join party</h3>
     <div class="panel">
       <ul class="party">
         <li>
@@ -243,9 +221,129 @@ const achievements = [
 </CrtLayout>
 
 <style>
+  /* ---- Solar system backdrop: sits over the grid, under the content ---- */
+  .solar-system {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  /* side view: the sun sits in the bottom-left corner, orbits arc across the screen */
+  .sun {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 130px;
+    height: 130px;
+    transform: translate(-40%, 40%);
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--amber-hi) 0%, var(--amber) 55%, rgba(255, 179, 0, 0) 100%);
+    box-shadow: 0 0 90px 30px rgba(255, 179, 0, 0.35);
+    opacity: 0.85;
+  }
+
+  .orbit {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    border: 1px solid rgba(160, 150, 255, 0.28);
+    border-radius: 50%;
+  }
+
+  .o1 { width: 240px; height: 240px; margin-left: -120px; margin-bottom: -120px; }
+  .o2 { width: 430px; height: 430px; margin-left: -215px; margin-bottom: -215px; }
+  .o3 { width: 640px; height: 640px; margin-left: -320px; margin-bottom: -320px; }
+  .o4 { width: 870px; height: 870px; margin-left: -435px; margin-bottom: -435px; }
+  .o5 { width: 1120px; height: 1120px; margin-left: -560px; margin-bottom: -560px; }
+
+  .planet {
+    position: absolute;
+    left: 50%;
+    border-radius: 50%;
+  }
+
+  .p1 { width: 8px; height: 8px; margin-left: -4px; top: -4px; background: var(--coral); }
+  .p2 { width: 12px; height: 12px; margin-left: -6px; top: -6px; background: var(--dim); }
+  .p3 { width: 16px; height: 16px; margin-left: -8px; top: -8px; background: var(--amber); }
+  .p4 { width: 10px; height: 10px; margin-left: -5px; top: -5px; background: var(--text); opacity: 0.8; }
+  .p5 { width: 14px; height: 14px; margin-left: -7px; top: -7px; background: var(--coral); opacity: 0.7; }
+
+  .ringed::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 8px;
+    transform: translate(-50%, -50%) rotate(-24deg);
+    border: 1.5px solid rgba(255, 216, 77, 0.7);
+    border-radius: 50%;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    /* Shared 80s period, phases staggered by 16s (1/5 cycle): each planet is
+       visible for 20s (a quarter orbit) and a new one enters every 16s, so
+       the visibility windows overlap and at least one planet is always on
+       screen. */
+    .orbit {
+      animation: orbit-spin 80s linear infinite;
+    }
+    .o1 { animation-delay: 0s; }
+    .o2 { animation-delay: -16s; }
+    .o3 { animation-delay: -32s; }
+    .o4 { animation-delay: -48s; }
+    .o5 { animation-delay: -64s; }
+
+    @keyframes orbit-spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+  }
+
+  /* reduced motion: planets frozen along the visible top-right arc */
+  @media (prefers-reduced-motion: reduce) {
+    .o1 { transform: rotate(28deg); }
+    .o2 { transform: rotate(62deg); }
+    .o3 { transform: rotate(15deg); }
+    .o4 { transform: rotate(48deg); }
+    .o5 { transform: rotate(75deg); }
+  }
+
   .page-title {
     font-size: clamp(1.4rem, 4.5vw, 2.4rem);
     margin-top: 1rem;
+  }
+
+  .mode-nav {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 1.25rem;
+    font-size: clamp(0.55rem, 1.4vw, 0.7rem);
+  }
+
+  .mode-nav a {
+    color: var(--dim);
+    text-decoration: none;
+    border: 2px solid rgba(160, 150, 255, 0.35);
+    padding: 0.6em 0.9em;
+  }
+
+  .mode-nav a:hover {
+    color: var(--amber-hi);
+    border-color: var(--amber);
+  }
+
+  .mode-nav a::before {
+    content: '▶ ';
+    color: var(--amber);
+  }
+
+  .mode-head {
+    font-size: clamp(1.1rem, 3.2vw, 1.7rem);
+    margin-top: 3.5rem;
+    scroll-margin-top: 1.5rem;
   }
 
   .player-card dl {
@@ -317,140 +415,40 @@ const achievements = [
     margin-bottom: 1rem;
   }
 
-  /* Worlds */
-  .world {
+  /* Professional experience entries */
+  .role {
     margin-block: 1rem;
   }
 
-  .world summary {
-    cursor: pointer;
-    list-style: none;
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
-
-  .world summary::-webkit-details-marker {
-    display: none;
-  }
-
-  .world-name {
-    font-size: clamp(0.65rem, 1.7vw, 0.85rem);
+  .role-title {
+    font-size: clamp(0.65rem, 1.7vw, 0.8rem);
     color: var(--text);
     line-height: 1.7;
   }
 
-  .world-name::before {
-    content: '▶ ';
-    color: var(--amber);
-  }
-
-  .world[open] .world-name::before {
-    content: '▼ ';
-    color: var(--coral);
-  }
-
-  .world summary:hover .world-name {
-    color: var(--amber-hi);
-  }
-
-  .yc-badge {
-    display: inline-block;
-    margin-left: 0.6em;
-    padding: 0.15em 0.45em;
-    background: #f26522;
-    color: #fff;
-    font-size: 0.85em;
-  }
-
-  .world-meta {
+  .role-meta {
+    margin: 0.4rem 0 0.9rem;
     font-size: 1.05rem;
   }
 
-  .status {
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-  }
-
-  .status.active {
-    color: var(--amber);
-  }
-
-  .world-blurb {
-    margin-top: 1rem;
-    border-top: 1px dashed rgba(160, 150, 255, 0.35);
-    padding-top: 1rem;
-  }
-
-  .stage-block {
-    margin-top: 1.5rem;
-  }
-
-  .stage-code {
-    font-size: clamp(0.6rem, 1.5vw, 0.75rem);
-    color: var(--amber);
-    line-height: 1.7;
-  }
-
-  .stage-dates {
-    margin: 0.35rem 0 0.7rem;
-    font-size: 1.05rem;
-  }
-
-  .stage-block ul {
+  .role ul {
     list-style: none;
   }
 
-  .stage-block li {
+  .role li {
     padding-left: 1.4em;
     position: relative;
     margin-bottom: 0.5rem;
   }
 
-  .stage-block li::before {
+  .role li::before {
     content: '▸';
     position: absolute;
     left: 0;
     color: var(--coral);
   }
 
-  /* Loot */
-  .loot {
-    margin-top: 1.75rem;
-    border-top: 1px dashed rgba(160, 150, 255, 0.35);
-    padding-top: 1.25rem;
-  }
-
-  .loot-head {
-    font-size: 0.6rem;
-    color: var(--amber-hi);
-    margin-bottom: 0.9rem;
-  }
-
-  .loot-head::before {
-    content: '◆ ';
-    color: var(--coral);
-  }
-
-  .loot-grid {
-    list-style: none;
-    display: grid;
-    gap: 1rem;
-  }
-
-  .loot-grid li {
-    display: grid;
-    gap: 0.3rem;
-  }
-
-  .item-name {
-    font-size: 0.65rem;
-    color: var(--text);
-  }
-
-  /* Skills, achievements, party */
+  /* Skills, talks, education */
   .skill-row {
     margin-bottom: 1.4rem;
   }
@@ -477,30 +475,8 @@ const achievements = [
     font-size: 1.1rem;
   }
 
-  .chips li.fresh {
-    border-color: var(--amber);
-  }
-
-  .new-tag {
-    font-size: 0.45rem;
-    color: var(--amber-hi);
-    margin-left: 0.5em;
-    vertical-align: 0.2em;
-  }
-
   .achievements {
     list-style: none;
-  }
-
-  .tutorial {
-    list-style: none;
-    display: grid;
-    gap: 0.5rem;
-  }
-
-  .tutorial li::before {
-    content: '✓ ';
-    color: var(--amber);
   }
 
   .achievements li {
@@ -514,6 +490,76 @@ const achievements = [
     position: absolute;
     left: 0;
     color: var(--amber);
+  }
+
+  .tutorial {
+    list-style: none;
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .tutorial li::before {
+    content: '✓ ';
+    color: var(--amber);
+  }
+
+  /* Free roam hobby cards */
+  .hobby-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 1rem;
+    margin-top: 1.25rem;
+  }
+
+  .hobby {
+    margin-block: 0;
+    display: grid;
+    gap: 0.6rem;
+    align-content: start;
+  }
+
+  .hobby-icon {
+    color: var(--amber);
+  }
+
+  .hobby-title {
+    font-size: 0.65rem;
+    color: var(--text);
+  }
+
+  .marathon {
+    display: grid;
+    gap: 0.5rem;
+    margin-top: 0.4rem;
+  }
+
+  .marathon-bar {
+    height: 12px;
+    border: 2px solid rgba(160, 150, 255, 0.4);
+    background: rgba(18, 11, 38, 0.6);
+    padding: 2px;
+  }
+
+  .marathon-fill {
+    height: 100%;
+    width: 100%;
+    background: repeating-linear-gradient(90deg, var(--amber) 0 8px, var(--amber-hi) 8px 16px);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .marathon-fill {
+      animation: marathon-fill 1.4s steps(14) both;
+    }
+    @keyframes marathon-fill {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+  }
+
+  .marathon-note {
+    font-size: 0.5rem;
+    color: var(--amber-hi);
+    line-height: 1.8;
   }
 
   .party {
@@ -534,14 +580,8 @@ const achievements = [
       margin-top: 0.5rem;
     }
 
-    /* stack world name over its dates instead of pushing them apart */
-    .world summary {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.4rem;
-      /* generous touch target without changing the visual box */
-      padding: 0.6rem;
-      margin: -0.6rem;
+    .mode-nav {
+      gap: 0.75rem;
     }
 
     .party {
